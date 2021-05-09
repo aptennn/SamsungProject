@@ -113,9 +113,9 @@ public class HomeFragment extends Fragment {
         View va = inflater.inflate(R.layout.fragment_home, container, false);
         temperature = (TextView) va.findViewById(R.id.temperature);// findViewById(R.id.temperature);
         dataReceived = (TextView) va.findViewById(R.id.dataReceived);
-        btn_manual = (RadioButton) va.findViewById(R.id.radio_manual);
-        btn_ontime = (RadioButton) va.findViewById(R.id.radio_ontime);
-        btn_auto = (RadioButton) va.findViewById(R.id.radio_auto);
+        //btn_manual = (RadioButton) va.findViewById(R.id.radio_manual);
+        //btn_ontime = (RadioButton) va.findViewById(R.id.radio_ontime);
+        //btn_auto = (RadioButton) va.findViewById(R.id.radio_auto);
         percent1 = (TextView) va.findViewById(R.id.percent1);
         percent2 = (TextView) va.findViewById(R.id.percent2);
 
@@ -131,12 +131,12 @@ public class HomeFragment extends Fragment {
         //btn_ontime.setOnClickListener(radioButtonClickListener);
         //btn_auto.setOnClickListener(radioButtonClickListener);
 
-        btn_settings = (ImageButton) va.findViewById(R.id.settings_button);
+        //btn_settings = (ImageButton) va.findViewById(R.id.settings_button);
 
         ground = (ProgressBar) va.findViewById(R.id.progressGroundHum);
         air = (ProgressBar) va.findViewById(R.id.progressAirHum);
 
-        btn_water = (FloatingActionButton) va.findViewById(R.id.btn_watering);
+        //btn_water = (FloatingActionButton) va.findViewById(R.id.btn_watering);
 
         Handler handler = new Handler() {
             @Override
@@ -147,7 +147,7 @@ public class HomeFragment extends Fragment {
         };
         handler.sendEmptyMessage(0);
 
-
+        /*
         btn_water.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,7 +161,7 @@ public class HomeFragment extends Fragment {
                 Intent i = new Intent(getActivity(), PreferencesActivity.class);
                 startActivity(i);
             }
-        });
+        })*/
 
         return va;
     }
@@ -247,7 +247,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    View.OnClickListener radioButtonClickListener = new View.OnClickListener() {
+    /*View.OnClickListener radioButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             RadioButton rb = (RadioButton)v;
@@ -277,7 +277,7 @@ public class HomeFragment extends Fragment {
         btn_manual.setChecked(false);
         btn_auto.setChecked(false);
         btn_ontime.setChecked(false);
-    }
+    }*/
     public void sendMessage(int opcode){
         Handler handler1 = new Handler();
 
