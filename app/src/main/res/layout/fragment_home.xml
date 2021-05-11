@@ -22,12 +22,12 @@
 
         <TextView
             android:id="@+id/temperature"
-            android:layout_width="43dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginLeft="64dp"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="128dp"
+            android:layout_marginLeft="128dp"
             android:text="+24"
-            android:textSize="24sp"
+            android:textSize="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/temperature2" />
 
@@ -47,29 +47,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.725" />
 
-        <TextView
+        <ImageView
             android:id="@+id/temperature2"
-            android:layout_width="20dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="32dp"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="28dp"
 
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="216dp"
-            android:text="t°"
-            android:textColor="@color/primary"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="232dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_cloud_24" />
 
         <TextView
             android:id="@+id/temperature4"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="124dp"
-            android:layout_marginLeft="124dp"
+            android:layout_width="92dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="236dp"
+            android:layout_marginLeft="236dp"
             android:text=" °C"
-            android:textSize="24sp"
+            android:textSize="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/temperature" />
 
@@ -119,9 +116,9 @@
             android:layout_width="38dp"
             android:layout_height="38dp"
 
-            android:layout_marginStart="328dp"
-            android:layout_marginLeft="328dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginStart="348dp"
+            android:layout_marginLeft="348dp"
+            android:layout_marginTop="136dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/temperature4"
             app:srcCompat="@drawable/ic_drop" />
@@ -190,9 +187,9 @@
             android:id="@+id/profileImage"
             android:layout_width="56dp"
             android:layout_height="65dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="352dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="428dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_drop" />
@@ -201,8 +198,8 @@
             android:id="@+id/textView2"
             android:layout_width="134dp"
             android:layout_height="66dp"
-            android:layout_marginStart="96dp"
-            android:layout_marginLeft="96dp"
+            android:layout_marginStart="136dp"
+            android:layout_marginLeft="136dp"
             android:text="TextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/profileImage" />
@@ -211,14 +208,29 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="300dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="364dp"
             android:text="Профиль"
             android:textSize="24dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/secondary"
+            android:id="@+id/btn_watering"
+            android:scaleType="center"
+            android:src="@drawable/ic_drop2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rippleColor="@color/white"
+            app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 <!--

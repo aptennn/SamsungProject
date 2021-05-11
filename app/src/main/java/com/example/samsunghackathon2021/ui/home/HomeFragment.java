@@ -51,10 +51,12 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.example.samsunghackathon2021.databinding.ActivityMainBinding;
+
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
@@ -64,6 +66,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -72,11 +75,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-
 
 
 import androidx.navigation.NavController;
@@ -109,7 +110,6 @@ public class HomeFragment extends Fragment {
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
 
-
         View va = inflater.inflate(R.layout.fragment_home, container, false);
         temperature = (TextView) va.findViewById(R.id.temperature);// findViewById(R.id.temperature);
         dataReceived = (TextView) va.findViewById(R.id.dataReceived);
@@ -136,7 +136,7 @@ public class HomeFragment extends Fragment {
         ground = (ProgressBar) va.findViewById(R.id.progressGroundHum);
         air = (ProgressBar) va.findViewById(R.id.progressAirHum);
 
-        //btn_water = (FloatingActionButton) va.findViewById(R.id.btn_watering);
+        btn_water = (FloatingActionButton) va.findViewById(R.id.btn_watering);
 
         Handler handler = new Handler() {
             @Override
@@ -147,14 +147,14 @@ public class HomeFragment extends Fragment {
         };
         handler.sendEmptyMessage(0);
 
-        /*
+
         btn_water.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendMessage(4);
             }
         });
-
+        /*
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,7 +173,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void startPrefsMqtt(String topic) {
-        mqttHelperPrefs = new MqttHelper(getActivity().getApplicationContext(),topic);
+        mqttHelperPrefs = new MqttHelper(getActivity().getApplicationContext(), topic);
         mqttHelperPrefs.setCallback(new MqttCallbackExtended() {
             @Override
             public void connectComplete(boolean b, String s) {
@@ -201,11 +201,11 @@ public class HomeFragment extends Fragment {
                 temperature.setText("+" + temp);
 
                 ground.setProgress(ground_hum);
-                percent1.setText(ground_hum+"%");
+                percent1.setText(ground_hum + "%");
                 air.setProgress(air_hum);
-                percent2.setText(air_hum+"%");
+                percent2.setText(air_hum + "%");
 
-                if(ground_hum<20){
+                if (ground_hum < 20) {
                     sendMessage(4);
                 }
 
@@ -217,8 +217,9 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
     private void startPompMqtt(String topic) {
-        mqttHelperPomp = new MqttHelper(getActivity().getApplicationContext(),topic);
+        mqttHelperPomp = new MqttHelper(getActivity().getApplicationContext(), topic);
         mqttHelperPomp.setCallback(new MqttCallbackExtended() {
             @Override
             public void connectComplete(boolean b, String s) {
@@ -247,47 +248,16 @@ public class HomeFragment extends Fragment {
     }
 
 
-    /*View.OnClickListener radioButtonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            RadioButton rb = (RadioButton)v;
-            clearRadioChecked();
-            btn_water.setVisibility(View.INVISIBLE);
-            switch (rb.getId()) {
-                case R.id.radio_manual:
-                    btn_manual.setChecked(!btn_manual.isChecked());
-                    sendMessage(1);
-                    btn_water.setVisibility(View.VISIBLE);
-                    break;
-                case R.id.radio_ontime:
-                    btn_ontime.setChecked(!btn_ontime.isChecked());
-                    sendMessage(2);
-                    break;
-                case R.id.radio_auto:
-                    btn_auto.setChecked(!btn_auto.isChecked());
-                    sendMessage(3);
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    };
-    public void clearRadioChecked() {
-        btn_manual.setChecked(false);
-        btn_auto.setChecked(false);
-        btn_ontime.setChecked(false);
-    }*/
-    public void sendMessage(int opcode){
+    public void sendMessage(int opcode) {
         Handler handler1 = new Handler();
 
         Log.i("water", " on");
         handler1.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mqttHelperPomp.publishMessage(""+opcode);
+                mqttHelperPomp.publishMessage("" + opcode);
             }
-        },10);
+        }, 10);
     }
 
 }
