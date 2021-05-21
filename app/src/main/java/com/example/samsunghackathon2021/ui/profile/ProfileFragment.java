@@ -4,25 +4,20 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
-import android.content.DialogInterface;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -30,12 +25,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.samsunghackathon2021.ItemClickSupport;
 import com.example.samsunghackathon2021.MqttHelper;
 import com.example.samsunghackathon2021.R;
-import com.example.samsunghackathon2021.State;
-import com.example.samsunghackathon2021.StateAdapter;
-import com.example.samsunghackathon2021.base.DBMatches;
+import com.example.samsunghackathon2021.base.DatabaseHelper;
+import com.example.samsunghackathon2021.base.NoteModel;
+import com.example.samsunghackathon2021.base.NotesAdapter;
 import com.example.samsunghackathon2021.databinding.FragmentProfileBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -46,18 +43,11 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.ArrayList;
 
-import static java.util.logging.Logger.global;
-
-public class ProfileFragment extends Fragment {
+ public class ProfileFragment extends Fragment {
     FloatingActionButton btn_add;
-    ArrayList<State> arrayList;
-    Context mContext;
-    ListView mListView;
-    SimpleCursorAdapter scAdapter;
-    Cursor cursor;
-    //myListAdapter myAdapter;
+    ArrayList<NoteModel> arrayList;
 
-    DBMatches database_helper;
+    DatabaseHelper database_helper;
     MqttHelper mqttHelperPrefs, mqttHelperPomp;
     RecyclerView recyclerView;
 
@@ -71,8 +61,6 @@ public class ProfileFragment extends Fragment {
 
 
     int a = 0;
-
-    ArrayList<State> states = new ArrayList<State>();
     private byte[] ByteArrayOutputStream;
 
 
@@ -84,22 +72,11 @@ public class ProfileFragment extends Fragment {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-
-
-
-
-
         setInitialData();
 
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.list);
-        // создаем адаптер
-        StateAdapter adapter = new StateAdapter(getContext(), states);
-        // устанавливаем для списка адаптер
-        recyclerView.setAdapter(adapter);
+        database_helper = new DatabaseHelper(getContext());
+        recyclerView = (RecyclerView) root.findViewById(R.id.listR);
 
-        database_helper = new DBMatches(getContext());
-        displayNotes();
 
 
 
@@ -118,20 +95,31 @@ public class ProfileFragment extends Fragment {
             }
         };
         handler.sendEmptyMessage(0);
+        displayNotes();
 
+        ItemClickSupport.addTo(recyclerView)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Toast.makeText(getContext(), " Один клик ", Toast.LENGTH_LONG).show();
+                        Log.d("ITEM CLICK", "Item single clicked ");
+                    }
 
-
-
+                    @Override
+                    public void onItemDoubleClicked(RecyclerView recyclerView, int position, View v) {
+                        Log.d("ITEM CLICK", "Item double clicked ");
+                        Toast.makeText(getContext(), " Два клик ", Toast.LENGTH_LONG).show();
+                    }
+                });
 
         return root;
     }
 
     public void displayNotes() {
-
         arrayList = new ArrayList<>(database_helper.getNotes());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        StateAdapter adapter = new StateAdapter(getContext(), arrayList);
+        NotesAdapter adapter = new NotesAdapter(getContext().getApplicationContext(), getActivity(), arrayList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -214,7 +202,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getContext(), namee.getText() + " Имя выбрано", Toast.LENGTH_LONG).show();
                 name_plant = namee.getText() + "";
-                database_helper.insert(name_plant, "x", "hum." + hum_ground);
+                database_helper.addNotes(name_plant, "Полив если влажность меньше " +hum_ground + "%", "hum." + hum_ground);
                 displayNotes();
 
 
