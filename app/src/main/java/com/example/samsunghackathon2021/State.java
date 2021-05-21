@@ -1,15 +1,17 @@
 package com.example.samsunghackathon2021;
 
 public class State {
-    private String name; // название
-    private String capital;  // столица
-    private int flagResource; // ресурс флага
+    private String name;
+    private String text;
+    private String mode;
+    private int ID;
 
-    public State(String name, String capital, int flag){
-
+    public State(int ID, String name, String text, String mode){
+        this.ID=ID;
         this.name=name;
-        this.capital=capital;
-        this.flagResource=flag;
+        this.text=text;
+        this.mode=mode;
+
     }
 
     public String getName() {
@@ -20,19 +22,30 @@ public class State {
         this.name = name;
     }
 
-    public String getCapital() {
-        return this.capital;
+    public String getText() {
+        return this.text;
     }
 
-    public void setCapital(String capital) {
-        this.capital = capital;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public int getFlagResource() {
-        return this.flagResource;
+    public int getID() {
+        return this.ID;
     }
 
-    public void setFlagResource(int flagResource) {
-        this.flagResource = flagResource;
+    public void setID(int ID) {
+        this.ID = ID;
     }
+
+    public String getMode() {
+        return this.mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+
+
 }

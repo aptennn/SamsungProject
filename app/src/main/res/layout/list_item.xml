@@ -23,13 +23,13 @@
         android:text="Название"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/capital"
+        app:layout_constraintBottom_toTopOf="@+id/mode"
         app:layout_constraintLeft_toRightOf="@+id/flag"
         android:paddingTop="20dp"
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
-        android:id="@+id/capital"
+        android:id="@+id/mode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"

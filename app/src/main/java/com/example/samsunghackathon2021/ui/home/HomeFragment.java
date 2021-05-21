@@ -6,9 +6,11 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -127,11 +129,7 @@ public class HomeFragment extends Fragment {
             }
         });
         */
-        //btn_manual.setOnClickListener(radioButtonClickListener);
-        //btn_ontime.setOnClickListener(radioButtonClickListener);
-        //btn_auto.setOnClickListener(radioButtonClickListener);
 
-        //btn_settings = (ImageButton) va.findViewById(R.id.settings_button);
 
         ground = (ProgressBar) va.findViewById(R.id.progressGroundHum);
         air = (ProgressBar) va.findViewById(R.id.progressAirHum);
@@ -148,20 +146,24 @@ public class HomeFragment extends Fragment {
         handler.sendEmptyMessage(0);
 
 
+        Switch sw = (Switch) va.findViewById(R.id.switch1);
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    sendMessage("p1");
+                } else {
+                    sendMessage("p0");
+                }
+            }
+        });
+
+
         btn_water.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage(4);
+                sendMessage("4");
             }
         });
-        /*
-        btn_settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), PreferencesActivity.class);
-                startActivity(i);
-            }
-        })*/
 
         return va;
     }
@@ -187,7 +189,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-                Log.w("Debug", mqttMessage.toString());
+                Log.w("de", mqttMessage.toString());
                 dataReceived.setText(mqttMessage.toString());
                 //Toast t = Toast.makeText(getApplicationContext(),mqttMessage.toString(),Toast.LENGTH_SHORT);
                 //t.show();
@@ -205,9 +207,9 @@ public class HomeFragment extends Fragment {
                 air.setProgress(air_hum);
                 percent2.setText(air_hum + "%");
 
-                if (ground_hum < 20) {
-                    sendMessage(4);
-                }
+                //if (ground_hum < 20) {
+                //    sendMessage("4");
+                //}
 
             }
 
@@ -248,7 +250,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public void sendMessage(int opcode) {
+    public void sendMessage(String opcode) {
         Handler handler1 = new Handler();
 
         Log.i("water", " on");

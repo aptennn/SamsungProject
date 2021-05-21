@@ -9,7 +9,7 @@
             android:id="@+id/dataReceived"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:text=""
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -192,15 +192,19 @@
             android:layout_marginTop="428dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_drop" />
+            app:srcCompat="@drawable/cucumber" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="134dp"
-            android:layout_height="66dp"
-            android:layout_marginStart="136dp"
-            android:layout_marginLeft="136dp"
-            android:text="TextView"
+            android:layout_width="250dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="108dp"
+            android:layout_marginLeft="108dp"
+            android:text="Огурец
+
+
+
+            полив если влажность 50% "
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/profileImage" />
 
