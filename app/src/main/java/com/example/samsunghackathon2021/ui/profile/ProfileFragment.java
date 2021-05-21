@@ -72,13 +72,9 @@ import java.util.ArrayList;
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        setInitialData();
 
         database_helper = new DatabaseHelper(getContext());
         recyclerView = (RecyclerView) root.findViewById(R.id.listR);
-
-
-
 
         btn_add = (FloatingActionButton) root.findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new View.OnClickListener() {
@@ -101,21 +97,27 @@ import java.util.ArrayList;
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Toast.makeText(getContext(), " Один клик ", Toast.LENGTH_LONG).show();
-                        Log.d("ITEM CLICK", "Item single clicked ");
+                        Toast.makeText(getContext(), " Один клик " + position, Toast.LENGTH_LONG).show();
+                        Log.d("ITEM CLICK", "Item single clicked " + position);
+                        database_helper.selectMode(position);
                     }
 
                     @Override
                     public void onItemDoubleClicked(RecyclerView recyclerView, int position, View v) {
                         Log.d("ITEM CLICK", "Item double clicked ");
-                        Toast.makeText(getContext(), " Два клик ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), " Два клик " + position, Toast.LENGTH_LONG).show();
+                        sendMessage(database_helper.selectMode(position));
+
                     }
                 });
 
         return root;
     }
 
-    public void displayNotes() {
+
+
+
+     public void displayNotes() {
         arrayList = new ArrayList<>(database_helper.getNotes());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -213,15 +215,6 @@ import java.util.ArrayList;
 
     }
 
-
-    private void setInitialData(){
-
-        //states.add(new State ("Огурец", "полив если влажность 50% <", R.drawable.cucumber));
-        //states.add(new State ("Помидор", "полив по пн чт вс", R.drawable.baseline_house_siding_24));
-        //states.add(new State ("Колумбия", "Богота", R.drawable.baseline_agriculture_24));
-        //states.add(new State ("Уругвай", "Монтевидео", R.drawable.baseline_window_24));
-        //states.add(new State ("Чили", "Сантьяго", R.drawable.ic_baseline_ac_unit_24));
-    }
 
     @Override
     public void onDestroyView() {

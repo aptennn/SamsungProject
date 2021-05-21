@@ -11,9 +11,7 @@
         android:id="@+id/flag"
         android:layout_width="100dp"
         android:layout_height="56dp"
-        android:focusable="true"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
+
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -28,9 +26,7 @@
         android:layout_marginLeft="20dp"
         android:text="Название"
         android:textSize="16dp"
-        android:focusable="true"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
+
         android:textStyle="bold"
         android:textColor="@android:color/tab_indicator_text"
         app:layout_constraintBottom_toTopOf="@+id/mode"
@@ -41,8 +37,7 @@
     <TextView
         android:id="@+id/mode"
         android:layout_width="0dp"
-        android:focusable="true"
-        android:clickable="true"
+
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:text="Столfsafas

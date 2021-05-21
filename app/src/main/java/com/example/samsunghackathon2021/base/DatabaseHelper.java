@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -46,6 +49,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.insert(TABLE_NAME, null , values);
         //close database connection
         sqLiteDatabase.close();
+    }
+
+    public String selectMode(int id){
+        String mode = "";
+        id++;
+        //String select_query= "SELECT * FROM " + TABLE_NAME + " WHERE ID=" + id;
+
+        SQLiteDatabase db = this .getWritableDatabase();
+        String idd = id + "";
+        //Cursor cursor = db.rawQuery(select_query, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE TRIM(ID) = '"+idd.trim()+"'", null);
+        if (cursor.moveToFirst()){
+            do {
+                // Passing values
+                String column1 = cursor.getString(0);
+                String column2 = cursor.getString(1);
+                String column3 = cursor.getString(2);
+                String column4 = cursor.getString(3);
+                mode = column4;
+                Log.d("basee", "" + column1 + " " + column2 + " " + column3 + " " + column4);
+                // Do something Here with values
+            } while(cursor.moveToNext());
+        }
+
+        return mode;
     }
 
     //get the all notes
