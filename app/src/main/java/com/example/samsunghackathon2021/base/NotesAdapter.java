@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.samsunghackathon2021.R;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.viewHolder> {
 
@@ -28,6 +29,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.viewHolder> 
     Activity activity;
     ArrayList<NoteModel> arrayList;
     DatabaseHelper database_helper;
+    ImageView image;
 
     public NotesAdapter(Context context,Activity activity, ArrayList<NoteModel> arrayList) {
         this.context = context;
@@ -45,26 +47,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.viewHolder> 
     public void onBindViewHolder(final NotesAdapter.viewHolder holder, final int position) {
         holder.title.setText(arrayList.get(position).getTitle());
         holder.mode.setText(arrayList.get(position).getDes());
+        int[] images = {R.drawable.vegetables1,R.drawable.vegetables2,R.drawable.vegetables3,R.drawable.vegetables4};
+        Random rand = new Random();
+        image.setImageResource(images[rand.nextInt(images.length)]);
         //holder.description.setText(arrayList.get(position).getDes());
         database_helper = new DatabaseHelper(context);
 
-        /*holder.delete.setOnClickListener(new View.OnClickListener() {;
-            @Override
-            public void onClick(View v) {
-                //deleting note
-                database_helper.delete(arrayList.get(position).getID());
-                arrayList.remove(position);
-                notifyDataSetChanged();
-            }
-        });
 
-        holder.edit.setOnClickListener(new View.OnClickListener() {;
-            @Override
-            public void onClick(View v) {
-                //display edit dialog
-                //showDialog(position);
-            }
-        });*/
     }
 
     @Override
@@ -79,6 +68,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.viewHolder> 
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.name);
             mode = (TextView) itemView.findViewById(R.id.mode);
+            image = (ImageView) itemView.findViewById(R.id.flag);
 
             //description = (TextView) itemView.findViewById(R.id.description);
             //delete = (ImageView) itemView.findViewById(R.id.delete);

@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -75,7 +76,7 @@ import java.util.ArrayList;
 
         database_helper = new DatabaseHelper(getContext());
         recyclerView = (RecyclerView) root.findViewById(R.id.listR);
-
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
         btn_add = (FloatingActionButton) root.findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +112,7 @@ import java.util.ArrayList;
                     }
                 });
 
-        return root;
+        return root;  
     }
 
 

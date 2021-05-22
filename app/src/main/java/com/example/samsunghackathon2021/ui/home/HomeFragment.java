@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Switch;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -89,6 +90,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Random;
+
 
 public class HomeFragment extends Fragment {
 
@@ -102,7 +105,7 @@ public class HomeFragment extends Fragment {
     FloatingActionButton btn_water;
 
     ImageButton btn_settings;
-
+    ImageView default_image;
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
 
@@ -121,20 +124,15 @@ public class HomeFragment extends Fragment {
         percent1 = (TextView) va.findViewById(R.id.percent1);
         percent2 = (TextView) va.findViewById(R.id.percent2);
 
-                /*final TextView textView = binding.te;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        */
-
-
         ground = (ProgressBar) va.findViewById(R.id.progressGroundHum);
         air = (ProgressBar) va.findViewById(R.id.progressAirHum);
-
         btn_water = (FloatingActionButton) va.findViewById(R.id.btn_watering);
+
+        default_image = (ImageView) va.findViewById(R.id.profileImage);
+        int[] images = {R.drawable.vegetables1,R.drawable.vegetables2,R.drawable.vegetables3,R.drawable.vegetables4};
+        Random rand = new Random();
+        default_image.setImageResource(images[rand.nextInt(images.length)]);
+
 
         Handler handler = new Handler() {
             @Override
@@ -173,6 +171,7 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 
     private void startPrefsMqtt(String topic) {
         mqttHelperPrefs = new MqttHelper(getActivity().getApplicationContext(), topic);
