@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -59,7 +60,7 @@ import java.util.ArrayList;
     boolean check = false;
     String name_plant = "";
 
-
+    public String profile_text;
 
     int a = 0;
     private byte[] ByteArrayOutputStream;
@@ -101,6 +102,8 @@ import java.util.ArrayList;
                         Toast.makeText(getContext(), " Один клик " + position, Toast.LENGTH_LONG).show();
                         Log.d("ITEM CLICK", "Item single clicked " + position);
                         database_helper.selectMode(position);
+
+                        profile_text = "Профилььь";
                     }
 
                     @Override
@@ -108,6 +111,7 @@ import java.util.ArrayList;
                         Log.d("ITEM CLICK", "Item double clicked ");
                         Toast.makeText(getContext(), " Два клик " + position, Toast.LENGTH_LONG).show();
                         sendMessage(database_helper.selectMode(position));
+                        database_helper.selectModeInFrag(position);
 
                     }
                 });

@@ -24,6 +24,7 @@ import com.example.samsunghackathon2021.MainActivity;
 import com.example.samsunghackathon2021.MqttHelper;
 import com.example.samsunghackathon2021.PreferencesActivity;
 import com.example.samsunghackathon2021.R;
+import com.example.samsunghackathon2021.base.DatabaseHelper;
 import com.example.samsunghackathon2021.databinding.FragmentHomeBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -98,22 +99,27 @@ public class HomeFragment extends Fragment {
     MqttHelper mqttHelperPrefs, mqttHelperPomp;
 
     TextView dataReceived;
-    TextView temperature, temperature2, percent1, percent2;
+    TextView temperature, temperature2, percent1, percent2, prof1, prof2;
     RadioButton btn_manual, btn_ontime, btn_auto;
     ProgressBar ground, air;
 
-    FloatingActionButton btn_water;
 
+    FloatingActionButton btn_water;
+    DatabaseHelper database_helper;
     ImageButton btn_settings;
     ImageView default_image;
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
+    String[] useList = new String[2];
+
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-
+        database_helper = new DatabaseHelper(getContext());
 
         View va = inflater.inflate(R.layout.fragment_home, container, false);
         temperature = (TextView) va.findViewById(R.id.temperature);// findViewById(R.id.temperature);
@@ -123,7 +129,8 @@ public class HomeFragment extends Fragment {
         //btn_auto = (RadioButton) va.findViewById(R.id.radio_auto);
         percent1 = (TextView) va.findViewById(R.id.percent1);
         percent2 = (TextView) va.findViewById(R.id.percent2);
-
+        prof1 = (TextView) va.findViewById(R.id.textView2);
+        prof2 = (TextView) va.findViewById(R.id.textView8);
         ground = (ProgressBar) va.findViewById(R.id.progressGroundHum);
         air = (ProgressBar) va.findViewById(R.id.progressAirHum);
         btn_water = (FloatingActionButton) va.findViewById(R.id.btn_watering);
@@ -132,6 +139,12 @@ public class HomeFragment extends Fragment {
         int[] images = {R.drawable.vegetables1,R.drawable.vegetables2,R.drawable.vegetables3,R.drawable.vegetables4};
         Random rand = new Random();
         default_image.setImageResource(images[rand.nextInt(images.length)]);
+
+
+        useList = database_helper.selectUse();
+        prof1.setText(useList[0]);
+        prof2.setText(useList[1]);
+
 
 
         Handler handler = new Handler() {
